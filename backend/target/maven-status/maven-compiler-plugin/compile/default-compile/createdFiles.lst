@@ -1,5 +1,5 @@
-com\example\portfolio\PortfolioApplication$1.class
+com\example\portfolio\controller\AppController.class
 com\example\portfolio\controller\PortfolioController.class
+com\example\portfolio\model\Portfolio.class
 com\example\portfolio\model\Project.class
 com\example\portfolio\PortfolioApplication.class
-com\example\portfolio\model\Portfolio.class
