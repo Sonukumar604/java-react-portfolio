@@ -1,0 +1,14 @@
+# Node / frontend
+/frontend/node_modules/
+/frontend/build/
+/frontend/.cache/
+frontend/package-lock.json
+
+# Java / Maven
+/backend/target/
+*.class
+
+# IDE / OS
+.vscode/
+.DS_Store
+Thumbs.db
