@@ -49,7 +49,7 @@ public class PortfolioController {
         return new Portfolio(
             "Sonu Kumar",
             "Java & React Developer",
-            "Passionate developer building full-stack applications with Java Spring Boot and React",
+            "Motivated full-stack developer focused on building scalable, user-friendly web applications using Java, Spring Boot, React, and REST APIs, with strong attention to clean code and real-world problem solving.",
             "sonusaini48292@gmail.com",
             "+91-8708788127",
             "https://github.com/Sonukumar604",
