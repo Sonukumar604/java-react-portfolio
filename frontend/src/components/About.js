@@ -25,7 +25,7 @@ const projectDetails = [
   {
     name: 'Java React Portfolio',
     type: 'Java + React full stack',
-    description: 'Created this personal portfolio using a Java Spring Boot backend and React frontend, and I am still improving its design and features.',
+    description: 'Created this personal portfolio as a React-based website, and I am still improving its design and features.',
   },
 ];
 
