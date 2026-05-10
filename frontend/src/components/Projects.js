@@ -7,6 +7,7 @@ const projectFilters = [
   { label: 'Frontend', value: 'frontend' },
   { label: 'Backend', value: 'backend' },
   { label: 'Fullstack', value: 'fullstack' },
+  { label: 'Java', value: 'java' },
 ];
 
 const classifyProject = (project) => {
@@ -18,6 +19,10 @@ const classifyProject = (project) => {
 
   if (text.includes('react') || text.includes('frontend') || text.includes('ui')) {
     return 'frontend';
+  }
+
+  if (text.includes('core java') || text.includes('oops')) {
+    return 'java';
   }
 
   if (text.includes('spring boot') || text.includes('java') || text.includes('api')) {
@@ -145,7 +150,7 @@ function Projects({ projects }) {
               </div>
               <div>
                 <span>Type</span>
-                <strong>{projectType === 'backend' ? 'API' : 'Web App'}</strong>
+                <strong>{project.type || (projectType === 'backend' ? 'API' : 'Web App')}</strong>
               </div>
             </div>
             <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-link project-button">

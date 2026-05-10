@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { FiMoon, FiSun } from 'react-icons/fi';
 
 const navItems = [
-  { label: 'Home', target: 'home' },
+  { label: 'Home', target: 'hero' },
   { label: 'About', target: 'about' },
   { label: 'Skills', target: 'skills' },
+  { label: 'Internship', target: 'internship' },
   { label: 'Projects', target: 'projects' },
+  { label: 'Activity', target: 'coding-activity' },
   { label: 'Contact', target: 'contact' },
 ];
 
 const getNavOffset = () => (window.innerWidth <= 640 ? 240 : 180);
 
 const getSectionTop = (element) => element.getBoundingClientRect().top + window.scrollY;
+const getAssetPath = (path) => `${process.env.PUBLIC_URL}${path}`;
 
 function Header({ portfolio, theme, onToggleTheme }) {
   const [activeSection, setActiveSection] = useState('home');
@@ -57,7 +60,7 @@ function Header({ portfolio, theme, onToggleTheme }) {
   };
 
   return (
-    <header className="header home-section" id="home">
+    <header className="header home-section" id="hero">
       <nav className="home-nav" aria-label="Primary navigation">
         <div className="home-brand">Portfolio.</div>
         <div className="home-menu">
@@ -92,7 +95,7 @@ function Header({ portfolio, theme, onToggleTheme }) {
           <p className="bio">{portfolio.bio}</p>
 
           <div className="home-actions">
-            <a className="download-btn" href="/assets/sonu-kumar-resume.docx" download="Sonu-Kumar-Resume.docx">
+            <a className="download-btn" href={getAssetPath('/assets/sonu-kumar-resume.docx')} download="Sonu-Kumar-Resume.docx">
               Download CV
             </a>
             <button className="contact-btn" type="button" onClick={() => scrollToSection('contact')}>
@@ -102,7 +105,7 @@ function Header({ portfolio, theme, onToggleTheme }) {
         </div>
 
         <div className="home-visual" aria-hidden="true">
-          <img src="/assets/college-student-boy.png" alt="" />
+          <img src={getAssetPath('/assets/college-student-boy.png')} alt="" />
         </div>
       </div>
     </header>

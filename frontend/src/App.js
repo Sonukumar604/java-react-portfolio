@@ -20,9 +20,9 @@ function App() {
         <Header portfolio={portfolio} />
         <About portfolio={portfolio} />
         <Skills skills={portfolio.skills} />
-        <GitHubActivity />
         <Internship />
         <Projects projects={portfolio.projects} />
+        <GitHubActivity />
         <Contact portfolio={portfolio} />
       </div>
 

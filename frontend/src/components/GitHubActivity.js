@@ -2,11 +2,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const githubUsername = 'Sonukumar604';
+const leetcodeUsername = 'YOUR_LEETCODE_USERNAME';
+const leetcodeProfileUrl = `https://leetcode.com/u/${leetcodeUsername}/`;
 
 function GitHubActivity() {
   return (
     <motion.section
-      id="github-activity"
+      id="coding-activity"
       className="section glass-section"
       initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -14,8 +16,8 @@ function GitHubActivity() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       <div className="section-header">
-        <h2>GitHub Activity</h2>
-        <p>Live profile cards powered by GitHub stats services.</p>
+        <h2>Coding Activity</h2>
+        <p>GitHub contribution visibility plus LeetCode problem-solving practice.</p>
       </div>
 
       <div className="github-stats-grid">
@@ -44,16 +46,42 @@ function GitHubActivity() {
           />
         </motion.div>
 
-        <motion.div
-          className="github-stat-card github-stat-wide"
-          whileHover={{ y: -6, scale: 1.01 }}
+        <motion.a
+          className="github-stat-card"
+          href={`https://github.com/${githubUsername}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ y: -6, scale: 1.02 }}
           transition={{ duration: 0.25 }}
         >
           <img
             src={`https://streak-stats.demolab.com?user=${githubUsername}&theme=transparent&hide_border=true&date_format=M%20j%5B%2C%20Y%5D`}
             alt="GitHub streak"
           />
-        </motion.div>
+        </motion.a>
+
+        <motion.a
+          className="github-stat-card leetcode-activity-card"
+          href={leetcodeProfileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          whileHover={{ y: -6, scale: 1.02 }}
+          transition={{ duration: 0.25 }}
+        >
+          <div className="leetcode-card-header">
+            <span>LeetCode</span>
+            <strong>{leetcodeUsername === 'YOUR_LEETCODE_USERNAME' ? 'Username Needed' : leetcodeUsername}</strong>
+          </div>
+          <img
+            src={`https://leetcard.jacoblin.cool/${leetcodeUsername}?theme=dark&font=Nunito&ext=heatmap`}
+            alt="LeetCode activity"
+          />
+          <div className="leetcode-highlights">
+            <span>DSA Practice</span>
+            <span>Java Solutions</span>
+            <span>Interview Prep</span>
+          </div>
+        </motion.a>
       </div>
     </motion.section>
   );

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
+const getAssetPath = (path) => `${process.env.PUBLIC_URL}${path}`;
+
 const projectDetails = [
   {
     name: 'Railway Reservation System',
@@ -44,7 +46,7 @@ function About({ portfolio }) {
       <div className="about-layout">
         <div className="about-visual" aria-hidden="true">
           <div className="about-star"></div>
-          <img src="/assets/college-student-boy.png" alt="" />
+          <img src={getAssetPath('/assets/college-student-boy.png')} alt="" />
         </div>
 
         <div className="about-content">
