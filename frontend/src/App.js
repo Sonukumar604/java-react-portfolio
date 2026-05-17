@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
 import Header from './components/Header';
 import About from './components/About';
 import Skills from './components/Skills';
@@ -12,12 +11,20 @@ import Footer from './components/Footer';
 import portfolio from './data/portfolioData';
 
 function App() {
-  return (
-    <div className="App">
-      <Navbar portfolio={portfolio} />
+  const [theme, setTheme] = useState('dark');
 
+  useEffect(() => {
+    document.body.classList.toggle('light-mode-body', theme === 'light');
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((currentTheme) => (currentTheme === 'dark' ? 'light' : 'dark'));
+  };
+
+  return (
+    <div className={`App ${theme === 'light' ? 'light-mode' : ''}`}>
       <div className="container">
-        <Header portfolio={portfolio} />
+        <Header portfolio={portfolio} theme={theme} onToggleTheme={toggleTheme} />
         <About portfolio={portfolio} />
         <Skills skills={portfolio.skills} />
         <Internship />

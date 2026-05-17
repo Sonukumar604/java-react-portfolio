@@ -11,13 +11,13 @@ const navItems = [
   { label: 'Contact', target: 'contact' },
 ];
 
-const getNavOffset = () => (window.innerWidth <= 640 ? 240 : 180);
+const getNavOffset = () => (window.innerWidth <= 640 ? 210 : 120);
 
 const getSectionTop = (element) => element.getBoundingClientRect().top + window.scrollY;
 const getAssetPath = (path) => `${process.env.PUBLIC_URL}${path}`;
 
 function Header({ portfolio, theme, onToggleTheme }) {
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +82,7 @@ function Header({ portfolio, theme, onToggleTheme }) {
           aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to night mode'}
           title={theme === 'dark' ? 'Light mode' : 'Night mode'}
         >
-          {theme === 'dark' ? <FiMoon /> : <FiSun />}
+          {theme === 'dark' ? <FiSun /> : <FiMoon />}
         </button>
         <a className="hire-btn" href={`mailto:${portfolio.email}`}>Hire Me</a>
       </nav>

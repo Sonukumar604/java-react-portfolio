@@ -7,10 +7,13 @@ const projectFilters = [
   { label: 'Frontend', value: 'frontend' },
   { label: 'Backend', value: 'backend' },
   { label: 'Fullstack', value: 'fullstack' },
-  { label: 'Java', value: 'java' },
 ];
 
 const classifyProject = (project) => {
+  if (project.category) {
+    return project.category;
+  }
+
   const text = `${project.name} ${project.description} ${project.technologies}`.toLowerCase();
 
   if (text.includes('react') && (text.includes('spring boot') || text.includes('java'))) {
@@ -83,18 +86,106 @@ function Projects({ projects }) {
     return projects.filter((project) => classifyProject(project) === activeFilter);
   }, [activeFilter, projects]);
 
+  const miniProjects = filteredProjects.filter((project) => project.size !== 'major');
+  const majorProjects = filteredProjects.filter((project) => project.size === 'major');
+
+  const renderMiniProject = (project, index) => {
+    const projectType = classifyProject(project);
+    const badges = getProjectBadges(projectType, project);
+    const techIcons = getTechIcons(project.technologies);
+
+    return (
+      <motion.div
+        key={project.name}
+        className="project"
+        initial={false}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        whileHover={{ y: -8, scale: 1.02 }}
+        transition={{ delay: index * 0.08, duration: 0.45, ease: 'easeOut' }}
+      >
+        <div className="project-card-glow" />
+        <div className="project-badges">
+          {badges.map((badge) => (
+            <span key={badge} className="project-badge">
+              {badge}
+            </span>
+          ))}
+        </div>
+        <h3>{project.name}</h3>
+        <p>{project.description}</p>
+        <div className="tech tech-chip">Tech: {project.technologies}</div>
+        <div className="tech-icons-row">
+          {techIcons.map(({ icon: Icon, label }) => (
+            <span key={label} className="tech-icon-pill" title={label} aria-label={label}>
+              <Icon />
+            </span>
+          ))}
+        </div>
+        <div className="project-meta-grid">
+          <div>
+            <span>Tech Used</span>
+            <strong>{project.technologies.split(',').slice(0, 2).join(', ')}</strong>
+          </div>
+          <div>
+            <span>Type</span>
+            <strong>{project.type || (projectType === 'backend' ? 'API' : 'Web App')}</strong>
+          </div>
+        </div>
+        <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-link project-button">
+          <FaGithub /> GitHub
+        </a>
+      </motion.div>
+    );
+  };
+
+  const renderMajorProject = (project, index) => (
+    <motion.div
+      key={project.name}
+      className={`major-project major-project-${project.accent || 'blue'}`}
+      initial={false}
+      animate={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -7 }}
+      transition={{ delay: index * 0.08, duration: 0.45, ease: 'easeOut' }}
+    >
+      <div className="major-project-visual">
+        <span className="major-live">Live</span>
+        <strong>{project.brand}</strong>
+        <em>{project.number}</em>
+      </div>
+      <div className="major-project-body">
+        <div className="major-project-kicker">
+          <span>Major Project</span>
+          <strong>{project.status}</strong>
+        </div>
+        <h3>{project.name}</h3>
+        <div className="major-divider" aria-hidden="true">
+          <span />
+        </div>
+        <ul>
+          {project.bullets.map((bullet) => (
+            <li key={bullet}>{bullet}</li>
+          ))}
+        </ul>
+        <div className="major-tech-list">
+          {project.technologies.split(',').map((technology) => (
+            <span key={technology.trim()}>{technology.trim()}</span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+
   return (
     <motion.section
       id="projects"
       className="section glass-section"
-      initial={{ opacity: 0, y: 36 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      initial={false}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       <div className="section-header">
         <h2>Projects</h2>
-        <p>Card layout with interactive filtering and local React content.</p>
+        <p>Mini builds already in progress, plus upcoming major systems for backend and full-stack interviews.</p>
       </div>
       <div className="filter-bar" role="tablist" aria-label="Project categories">
         {projectFilters.map((filter) => (
@@ -108,59 +199,29 @@ function Projects({ projects }) {
           </button>
         ))}
       </div>
-      <div className="projects-grid">
-        {filteredProjects.map((project, index) => (
-          (() => {
-            const projectType = classifyProject(project);
-            const badges = getProjectBadges(projectType, project);
-            const techIcons = getTechIcons(project.technologies);
+      {miniProjects.length > 0 && (
+        <div className="project-group">
+          <div className="project-group-heading">
+            <span>Mini Projects</span>
+            <strong>{miniProjects.length.toString().padStart(2, '0')}</strong>
+          </div>
+          <div className="projects-grid">
+            {miniProjects.map(renderMiniProject)}
+          </div>
+        </div>
+      )}
 
-            return (
-          <motion.div
-            key={index}
-            className="project"
-            initial={{ opacity: 0, y: 28, scale: 0.97 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            whileHover={{ y: -8, scale: 1.02 }}
-            transition={{ delay: index * 0.08, duration: 0.45, ease: 'easeOut' }}
-          >
-            <div className="project-card-glow" />
-            <div className="project-badges">
-              {badges.map((badge) => (
-                <span key={badge} className="project-badge">
-                  {badge}
-                </span>
-              ))}
-            </div>
-            <h3>{project.name}</h3>
-            <p>{project.description}</p>
-            <div className="tech tech-chip">Tech: {project.technologies}</div>
-            <div className="tech-icons-row">
-              {techIcons.map(({ icon: Icon, label }) => (
-                <span key={label} className="tech-icon-pill" title={label} aria-label={label}>
-                  <Icon />
-                </span>
-              ))}
-            </div>
-            <div className="project-meta-grid">
-              <div>
-                <span>Tech Used</span>
-                <strong>{project.technologies.split(',').slice(0, 2).join(', ')}</strong>
-              </div>
-              <div>
-                <span>Type</span>
-                <strong>{project.type || (projectType === 'backend' ? 'API' : 'Web App')}</strong>
-              </div>
-            </div>
-            <a href={project.url} target="_blank" rel="noopener noreferrer" className="project-link project-button">
-              <FaGithub /> GitHub
-            </a>
-          </motion.div>
-            );
-          })()
-        ))}
-      </div>
+      {majorProjects.length > 0 && (
+        <div className="project-group major-project-group">
+          <div className="project-group-heading">
+            <span>Major Projects</span>
+            <strong>Upcoming</strong>
+          </div>
+          <div className="major-projects-grid">
+            {majorProjects.map(renderMajorProject)}
+          </div>
+        </div>
+      )}
     </motion.section>
   );
 }
